@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <title>TextProofreading</title>
+        <!--引入的css文件-->
+        <link rel="stylesheet" href="/static/css/pagestyle.css"/>
+        <link rel="stylesheet" href="/static/lib/layui-v2.6.3/css/layui.css"/>
+        <style>
+            #textarea {
+                resize: none;
+                border-color: #2d6ca9;
+                border-radius: 10px;
+                padding: 10px;
+            }
+        </style>
+    </head>
+<body>
+<form>
+    <!--总页面框架-->
+    <div class="container">
+        <!--页面顶部-->
+        <div class="top"><h2>TextProofreading</h2></div>
+        <!--页面主框架-->
+        <div class="mainframe">
+            <!--左半拉页面包含 顶部 主体 尾部-->
+            <div class="leftContainer">
+                <!--左边顶部-->
+                <div class="left_top">
+                    <label for="textarea">文档校对</label>
+                </div>
+                <!--左边主体文本框-->
+                <div class="left_middle">
+                    <textarea name="inputtext" id="textarea"></textarea>
+                </div>
+                <!--左边尾部重置按钮-->
+                <div class="left_bottom">
+                    <span><button type="reset" style="float: left" class="button blue">重 置</button></span>
+                    <span><button type="button" style="float: right" class="button blue"
+                                  onclick="whenClick1()">校 对</button></span>
+                </div>
+            </div><!--左半拉页面完成-->
+
+            <!--右半拉页面-->
+            <div class="rightContainer">
+                <!--右半拉顶部-->
+                <div class="right_top">
+                    <!--显示识别结果以及错误数量-->
+                    <span style="float: left;">识别结果</span>
+                  <!--  <span style="float: right;margin-right: 32px">
+                    共有<label for="wrong_num"></label><input disabled="disabled" id="wrong_num" value="0"/>处错误
+                </span>-->
+                </div>
+                <!--右半拉主体部分-->
+                <div class="right_middle">
+                    <!--识别错误结果框架-->
+                    <div class="result-class">
+                        <!--拼写错误详细内容以表格形式列出 错误单词/错误位置/修改建议-->
+                        <table id="error-table"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="UTF-8"></script>
+<script src="/static/lib/layui-v2.6.3/layui.js" type="text/javascript" th:inline="none" charset="UTF-8"></script>
+<script>
+    /**
+     * 点击校对按钮，获取文本框内容
+     */
+    function whenClick1() {
+        //获取textarea文本框里的内容
+        var textInfo = document.getElementById("textarea").value;
+        // 声明独享
+        var data = {};
+        data['text'] = textInfo;
+        $.ajax(
+            {
+                type: "post",//请求方式
+                url: "/proof/check",//请求地址
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",//预期返回的数据类型
+                success: function (res) {
+                    if (res.code === '00000') {
+                        renderData("#error-table", res.data);
+                    }
+                },
+                error: function () {
+                    alert("异常！");
+                }
+            }
+        );
+    }
+
+    function renderData(id, data) {
+        var table = layui.table;
+        table.render({
+            elem: id,
+            data: data,
+            height: 402,
+            cols:[[
+                {field: 'word', title:'拼写错误', width: 120},
+                {field: 'location', title: '位置', width: 120},
+                {field: 'suggest', title: '纠错建议' }
+            ]]
+        })
+
+    }
+</script>
+<!--<script src="/static/lib/layui-v2.6.3/layui.js" type="text/javascript" th:inline="none" charset="UTF-8"></script>-->
+<!--<script>-->
+<!--    function whenClick2() {-->
+<!--         var textInfo = document.getElementById("textarea").value();-->
+<!--        // 声明独享&ndash;&gt;-->
+<!--        var data = {};-->
+<!--        data['text'] = textInfo;-->
+<!--        layui.use('table', function () {-->
+<!--            var table = layui.table;-->
+<!--            table.render({-->
+<!--                elem: '#error-table',//table的id-->
+<!--                height: 402,//高度-->
+<!--                url: '/proof/check', //数据接口-->
+<!--                method: 'post',-->
+<!--              /*  url: '/static/api/error.json', //数据接口*/-->
+<!--                /* page: true, //开启分页*/-->
+<!--                //field:json格式里的data名-->
+<!--                cols: [-->
+<!--                    [-->
+<!--                        {field: 'word', title: '拼写错误', width: 120},-->
+<!--                        {field: 'position', title: '位置', width: 120},-->
+<!--                        {field: 'suggestion', title: '纠错建议'}-->
+<!--                    ]-->
+<!--                ]-->
+<!--            });-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+</body>
+</html>
