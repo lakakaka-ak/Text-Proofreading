@@ -43,12 +43,14 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!--  ACDAT    -->
         <dependency>
             <groupId>com.hankcs</groupId>
             <artifactId>aho-corasick-double-array-trie</artifactId>
             <version>1.2.3</version>
         </dependency>
 
+        <!--  json    -->
         <dependency>
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
@@ -56,20 +58,14 @@
             <classifier>jdk15</classifier><!-- 指定jdk版本 -->
         </dependency>
 
+        <!--  Hanlp用于分词等    -->
         <dependency>
             <groupId>com.hankcs</groupId>
             <artifactId>hanlp</artifactId>
             <version>portable-1.8.3</version>
         </dependency>
 
-        <dependency>
-            <groupId>edu.stanford.nlp</groupId>
-            <artifactId>stanford-corenlp</artifactId>
-            <version>3.5.2</version>
-            <classifier>models</classifier>
-        </dependency>
-
-
+        <!--  前后端数据交互    -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
@@ -80,17 +76,25 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
 
+        <!--  英文单词纠错   -->
         <dependency>
             <groupId>com.github.houbb</groupId>
             <artifactId>word-checker</artifactId>
             <version>0.1.0</version>
         </dependency>
 
+        <!--  中文转拼音   -->
+        <dependency>
+            <groupId>com.github.houbb</groupId>
+            <artifactId>pinyin</artifactId>
+            <version>0.3.1</version>
+        </dependency>
 
     </dependencies>
     <build>

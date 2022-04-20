@@ -1,5 +1,6 @@
 package com.bistu.edu.cs.textproofreading.correct.english;
 
+import com.bistu.edu.cs.textproofreading.constant.DicConstant;
 import com.bistu.edu.cs.textproofreading.pojo.ErrorForm;
 import com.bistu.edu.cs.textproofreading.pojo.en.Symbol;
 import com.github.houbb.word.checker.util.EnWordCheckers;
@@ -58,7 +59,7 @@ public class SpellCorrect {
 
     public Map<String, Integer> loadEn() throws IOException {
         Map<String, Integer> map = new HashMap<>();
-        final String path = "static/dic/en_fre";
+        final String path = DicConstant.En_Fre;
         BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream(path)), StandardCharsets.UTF_8));
         String line;
         while ((line = br.readLine()) != null) {
@@ -80,7 +81,7 @@ public class SpellCorrect {
      */
     public AhoCorasickDoubleArrayTrie<String> buildDAT() throws Exception {
         // 加载词典
-        Set<String> dictionary = loadDictionary("static/dic/en");
+        Set<String> dictionary = loadDictionary(DicConstant.En_DIC);
         // 可以使用任何类型存储数据
         Map<String, String> map = new TreeMap<>();
 //        Map<String, String> map = new HashMap<String, String>();
