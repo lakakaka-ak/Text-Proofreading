@@ -160,7 +160,7 @@ public class SpellCorrect {
             int k = i + 1;
             if (k < hits.size()) {
                 while (curEnd == hits.get(k).end) {
-                    if (hits.get(k).begin < hits.get(i).begin) {
+                    if (hits.get(k).begin < minBegin) {
                         minBegin = hits.get(k).begin;
                     }
                     k++;

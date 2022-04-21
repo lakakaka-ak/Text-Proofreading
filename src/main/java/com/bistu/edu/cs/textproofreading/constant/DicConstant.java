@@ -16,4 +16,9 @@ public final class DicConstant {
      * 英文词频词典系统路径
      */
     public static final String En_Fre= "static/dic/en_fre";
+
+    /**
+     * 中文拼音词典系统路径
+     */
+    public static final String Ch= "static/dic/ch";
 }

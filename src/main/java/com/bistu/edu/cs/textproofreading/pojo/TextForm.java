@@ -16,9 +16,9 @@ import java.io.Serializable;
 @Data
 public class TextForm implements Serializable {
 
-    /** 文本框中的文本内容，不允许为null，最多不能超过500 */
+    /** 文本框中的文本内容，不允许为null，最多不能超过5000 */
     @NotNull
-    @Length(max = 500)
+    @Length(max = 5000)
     private String text;
 
 
