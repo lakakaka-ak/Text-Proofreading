@@ -1,14 +1,17 @@
 package com.bistu.edu.cs.textproofreading.controller;
 
+import com.bistu.edu.cs.textproofreading.correct.chinese.ChCorrect;
 import com.bistu.edu.cs.textproofreading.correct.chinese.PinyinCorrect;
 import com.bistu.edu.cs.textproofreading.correct.english.SpellCorrect;
 import com.bistu.edu.cs.textproofreading.pojo.ErrorForm;
 import com.bistu.edu.cs.textproofreading.pojo.TextForm;
 import com.bistu.edu.cs.textproofreading.result.Result;
+import com.bistu.edu.cs.textproofreading.service.PinyinToneService;
 import com.bistu.edu.cs.textproofreading.util.BooleanEN;
 import com.github.houbb.pinyin.util.PinyinHelper;
 import com.hankcs.algorithm.AhoCorasickDoubleArrayTrie;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +26,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/proof")
 public class ProofController {
+    private final PinyinToneService pinyinToneService;
+
+    public ProofController(@Autowired PinyinToneService pinyinToneService){
+        this.pinyinToneService = pinyinToneService;
+    }
 
     /**
      * 检索textinfo中单词，将错误信息输出到表格中并显示
@@ -71,18 +79,8 @@ public class ProofController {
         else {
             //当前时间
             long startTime=System.currentTimeMillis();
-            //TODO 构建中文校对对象
-            PinyinCorrect pc = new PinyinCorrect();
-            //TODO 构建ACDAT树
-            AhoCorasickDoubleArrayTrie<String> acdat = pc.buildChDAT();
-            //TODO 将文本转拼音
-            String pinyin = PinyinHelper.toPinyin(text);
-            //TODO 根据加入到ACDAT的词典进行文本解析
-            List<AhoCorasickDoubleArrayTrie.Hit<String>> hits = acdat.parseText(pinyin);
-            //TODO 将hits倒序
-            Collections.reverse(hits);
-            //TODO pinyin查错及纠错
-            List<ErrorForm> result = pc.findWrongPinyin(text, hits);
+            ChCorrect cc = new ChCorrect(pinyinToneService);
+            List<ErrorForm> result = cc.WrongInfo(text);
             //结束时间
             long endTime=System.currentTimeMillis();
             log.info("当前程序耗时："+(endTime-startTime)+"ms");

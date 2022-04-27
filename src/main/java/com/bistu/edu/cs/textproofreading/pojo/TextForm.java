@@ -21,7 +21,4 @@ public class TextForm implements Serializable {
     @Length(max = 5000)
     private String text;
 
-
-
-
 }

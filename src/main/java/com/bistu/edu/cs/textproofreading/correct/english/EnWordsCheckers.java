@@ -75,7 +75,7 @@ public class EnWordsCheckers {
 
     public List<String> getSuggestions(String word) throws IOException {
         SpellCorrect sc = new SpellCorrect();
-        Set<String> dictionary = sc.loadDictionary("static/dic/en");
+        Set<String> dictionary = sc.loadDictionary("static/dic/en/en_word");
         List<String> first = dis1(word);//distance1
 //        List<String> second = dis2(first);//distance2耗时太久
         List<String> suggestions = new ArrayList<>();

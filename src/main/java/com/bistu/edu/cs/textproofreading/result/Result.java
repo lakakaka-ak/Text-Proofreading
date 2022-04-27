@@ -123,5 +123,4 @@ public class Result<T> {
                 .data(data)
                 .build();
     }
-
 }

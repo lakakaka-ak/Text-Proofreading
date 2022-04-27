@@ -136,12 +136,12 @@ public class SpellCorrect {
 
     /**
      * <p>
-     *     英文单词查错基于对匹配串进行DFS查找，找出错误单词位置
-     *     英文单词纠错 调用EnWordCheckers.correct方法
+     * 英文单词查错基于对匹配串进行DFS查找，找出错误单词位置
+     * 英文单词纠错 调用EnWordCheckers.correct方法
      * </p>
      *
      * @param textInfo 要校对的字符串
-     * @param hits 匹配串
+     * @param hits     匹配串
      * @return 错误集合
      */
 

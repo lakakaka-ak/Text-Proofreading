@@ -48,9 +48,9 @@
                 <div class="right_top">
                     <!--显示识别结果以及错误数量-->
                     <span style="float: left;">识别结果</span>
-                  <!--  <span style="float: right;margin-right: 32px">
-                    共有<label for="wrong_num"></label><input disabled="disabled" id="wrong_num" value="0"/>处错误
-                </span>-->
+                    <!--  <span style="float: right;margin-right: 32px">
+                      共有<label for="wrong_num"></label><input disabled="disabled" id="wrong_num" value="0"/>处错误
+                  </span>-->
                 </div>
                 <!--右半拉主体部分-->
                 <div class="right_middle">
@@ -64,7 +64,8 @@
         </div>
     </div>
 </form>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="UTF-8"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js" type="text/javascript"
+        charset="UTF-8"></script>
 <script src="/static/lib/layui-v2.6.3/layui.js" type="text/javascript" th:inline="none" charset="UTF-8"></script>
 <script>
     /**
@@ -101,42 +102,13 @@
             elem: id,
             data: data,
             height: 402,
-            cols:[[
-                {field: 'word', title:'拼写错误', width: 120},
+            cols: [[
+                {field: 'word', title: '拼写错误', width: 120},
                 {field: 'location', title: '位置', width: 120},
-                {field: 'suggest', title: '纠错建议' }
+                {field: 'suggest', title: '纠错建议'}
             ]]
         })
-
     }
 </script>
-<!--<script src="/static/lib/layui-v2.6.3/layui.js" type="text/javascript" th:inline="none" charset="UTF-8"></script>-->
-<!--<script>-->
-<!--    function whenClick2() {-->
-<!--         var textInfo = document.getElementById("textarea").value();-->
-<!--        // 声明独享&ndash;&gt;-->
-<!--        var data = {};-->
-<!--        data['text'] = textInfo;-->
-<!--        layui.use('table', function () {-->
-<!--            var table = layui.table;-->
-<!--            table.render({-->
-<!--                elem: '#error-table',//table的id-->
-<!--                height: 402,//高度-->
-<!--                url: '/proof/check', //数据接口-->
-<!--                method: 'post',-->
-<!--              /*  url: '/static/api/error.json', //数据接口*/-->
-<!--                /* page: true, //开启分页*/-->
-<!--                //field:json格式里的data名-->
-<!--                cols: [-->
-<!--                    [-->
-<!--                        {field: 'word', title: '拼写错误', width: 120},-->
-<!--                        {field: 'position', title: '位置', width: 120},-->
-<!--                        {field: 'suggestion', title: '纠错建议'}-->
-<!--                    ]-->
-<!--                ]-->
-<!--            });-->
-<!--        });-->
-<!--    }-->
-<!--</script>-->
 </body>
 </html>
