@@ -41,7 +41,7 @@ public class ChCorrect {
 
         //TODO 使用Hanlp对文本进行分词
         HanLP.Config.ShowTermNature = false;//不显示词性
-        String[] strings = text.split("[，,。；！？、]");//为了解决分词时将前后两句话的句尾和句首分在一起
+        String[] strings = text.split("[，,。；！？、“\"]");//为了解决分词时将前后两句话的句尾和句首分在一起
         int textLength = 0;//记录每句话长度，用于错位置输出
         for (String sentence : strings) {
             String textInfo = StringUtils.clearCharacter(sentence);//清除标点符号
