@@ -29,13 +29,19 @@ public final class DicConstant {
     public static final String Pinyin = "static/dic/ch/pinyin";
 
     /**
+     * 拼音索引词典
+     */
+    public static final String PyDAT = "static/dic/ch/py";
+
+    /**
      * 声调词典系统路径
      */
     public static final String Tone = "src/main/resources/static/dic/ch/tone.txt";
 
     /**
-     * 声调词典系统路径
+     * 用户自定义拼音词典
      */
-    public static final String YuSU = "static/dic/ch/singleword";
+    public static final String DefinePy = "static/dic/ch/define_py";
+
 
 }

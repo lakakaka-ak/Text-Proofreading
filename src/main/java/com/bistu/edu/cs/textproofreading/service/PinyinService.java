@@ -73,6 +73,33 @@ public class PinyinService {
         }
     }
 
+    /**
+     * 判断数据库是否存在某个词
+     * @param word 词
+     * @return 是否存在
+     */
+    public boolean wordExist(String word){
+        List<PinyinData> s = SearchByWord(word);
+        if(s.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 判断数据库是否存在某个拼音
+     * @param pinyin 拼音
+     * @return 是否存在
+     */
+
+    public boolean pinyinExist(String pinyin){
+        List<PinyinData> yin =SearchByPinyin(pinyin);
+        if(yin.size()==0){
+            return false;
+        }
+        return true;
+    }
+
     public boolean addDictBatch(List<PinyinData> list){
         //TODO 非空检查
         if(list.isEmpty()){
@@ -120,6 +147,27 @@ public class PinyinService {
         //TODO 判断数据库中是否存在此元素
         if(pinyinMapper.findPinyin(pinyin) != null){
             return pinyinMapper.findPinyin(pinyin);
+        }else{
+            logger.error("数据库中无此项数据");
+            return null;
+        }
+    }
+
+    /**
+     * 根据拼音查询对应数据
+     * @param pinyin 待查询拼音
+     * @return 查询结果
+     */
+    public List<String> SearchWordByPinyin(String pinyin){
+        //todo 检查是否为空
+        if(pinyin == null){
+            logger.error("查询字段不能为空");
+            return null;
+        }
+
+        //TODO 判断数据库中是否存在此元素
+        if(pinyinMapper.findWByP(pinyin) != null){
+            return pinyinMapper.findWByP(pinyin);
         }else{
             logger.error("数据库中无此项数据");
             return null;

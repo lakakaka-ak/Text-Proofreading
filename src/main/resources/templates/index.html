@@ -6,7 +6,7 @@
         <title>TextProofreading</title>
         <!--引入的css文件-->
         <link rel="stylesheet" href="/static/css/pagestyle.css"/>
-        <link rel="stylesheet" href="/static/lib/layui-v2.6.3/css/layui.css"/>
+        <link rel="stylesheet" href="/static/lib/layui-v2.6.3/css/layui1.css"/>
         <style>
             #textarea {
                 resize: none;
@@ -32,7 +32,9 @@
                 </div>
                 <!--左边主体文本框-->
                 <div class="left_middle">
-                    <textarea name="inputtext" id="textarea"></textarea>
+                    <textarea name="inputtext" id="textarea" required lay-verify="required" placeholder="请输入文本" ></textarea>
+                   <!-- <textarea name="inputtext" id="textarea"></textarea>
+                   -->
                 </div>
                 <!--左边尾部重置按钮-->
                 <div class="left_bottom">
@@ -48,16 +50,13 @@
                 <div class="right_top">
                     <!--显示识别结果以及错误数量-->
                     <span style="float: left;">识别结果</span>
-                    <!--  <span style="float: right;margin-right: 32px">
-                      共有<label for="wrong_num"></label><input disabled="disabled" id="wrong_num" value="0"/>处错误
-                  </span>-->
                 </div>
                 <!--右半拉主体部分-->
                 <div class="right_middle">
                     <!--识别错误结果框架-->
                     <div class="result-class">
                         <!--拼写错误详细内容以表格形式列出 错误单词/错误位置/修改建议-->
-                        <table id="error-table"></table>
+                        <table id="error-table" lay-filter="demoEvent"></table>
                     </div>
                 </div>
             </div>
@@ -87,6 +86,7 @@
                 success: function (res) {
                     if (res.code === '00000') {
                         renderData("#error-table", res.data);
+                        layer.msg("校对完成！");
                     }
                 },
                 error: function () {
@@ -101,7 +101,8 @@
         table.render({
             elem: id,
             data: data,
-            height: 402,
+            height:395,
+            page:true,
             cols: [[
                 {field: 'word', title: '拼写错误', width: 120},
                 {field: 'location', title: '位置', width: 120},
@@ -109,6 +110,9 @@
             ]]
         })
     }
+
+
+
 </script>
 </body>
 </html>

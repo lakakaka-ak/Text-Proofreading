@@ -1,21 +1,18 @@
 package com.bistu.edu.cs.textproofreading.controller;
 
 import com.bistu.edu.cs.textproofreading.correct.chinese.ChCorrect;
-import com.bistu.edu.cs.textproofreading.correct.chinese.PinyinCorrect;
-import com.bistu.edu.cs.textproofreading.correct.english.SpellCorrect;
+import com.bistu.edu.cs.textproofreading.correct.english.EnCorrect;
 import com.bistu.edu.cs.textproofreading.pojo.ErrorForm;
 import com.bistu.edu.cs.textproofreading.pojo.TextForm;
 import com.bistu.edu.cs.textproofreading.result.Result;
-import com.bistu.edu.cs.textproofreading.service.PinyinToneService;
+import com.bistu.edu.cs.textproofreading.service.PinyinService;
 import com.bistu.edu.cs.textproofreading.util.BooleanEN;
-import com.github.houbb.pinyin.util.PinyinHelper;
-import com.hankcs.algorithm.AhoCorasickDoubleArrayTrie;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,67 +23,60 @@ import java.util.List;
 @RestController
 @RequestMapping("/proof")
 public class ProofController {
-    private final PinyinToneService pinyinToneService;
 
-    public ProofController(@Autowired PinyinToneService pinyinToneService){
-        this.pinyinToneService = pinyinToneService;
+    private final PinyinService pinyinService;
+
+    public ProofController(@Autowired PinyinService pinyinService) {
+        this.pinyinService = pinyinService;
     }
 
     /**
-     * 检索textinfo中单词，将错误信息输出到表格中并显示
+     * <p>
+     * 检索textinfo中单词
+     * 将错误信息输出到表格中并显示
+     * </p>
      */
     @PostMapping(value = "/check")
     public Result<Object> checkText(@RequestBody @Validated TextForm textForm) throws Exception {
-        // 获取请求参数
+        /* 获取请求参数 */
         String text = textForm.getText();
+        /* 返回校对结果（转Json） */
+        List<ErrorForm> result = new ArrayList<>();
         log.info(text);
 
         /**
-         * <p>
-         *     判断文本是英文文本还是中文文本
-         *     若英文中文都包含则以英文进行处理
-         *     后续会进行中英文分离
-         * </p>
-         *
+         * 英文校对算法
          */
-        if(BooleanEN.isEnglishStr(text)){
-            /**
-             * 英文校对算法接口
-             */
+        if (BooleanEN.isEnglishStr(text)) {
             //当前时间
-            long startTime=System.currentTimeMillis();
-            //TODO 对文本标点符号进行处理
-            String textInfo=text.replaceAll("[,.!?:'\"]"," ");
+            long startTime = System.currentTimeMillis();
             //TODO 构建英文校对对象
-            SpellCorrect sc = new SpellCorrect();
-            //TODO 构建ACDAT树
-            AhoCorasickDoubleArrayTrie<String> acdat= sc.buildDAT();
-            //TODO 根据加入到ACDAT的词典进行文本解析
-            List<AhoCorasickDoubleArrayTrie.Hit<String>> hits = acdat.parseText(textInfo);
-            //TODO 将hits倒序
-            Collections.reverse(hits);
+            EnCorrect ec = new EnCorrect();
             //TODO 英文查错及纠错
-            List<ErrorForm> result = sc.findWrongWords(textInfo, hits);
+            List<ErrorForm> resultEN = ec.findWrongWords(text);
+            result.addAll(resultEN);
             //结束时间
-            long endTime=System.currentTimeMillis();
-            log.info("当前程序耗时："+(endTime-startTime)+"ms");
-            return Result.ok(result);
+            long endTime = System.currentTimeMillis();
+            log.info("英文校对程序耗时：" + (endTime - startTime) + "ms");
         }
 
         /**
-         * 中文校对算法接口
+         * 中文校对算法
          */
-        else {
+        if (BooleanEN.isContainChinese(text)) {
             //当前时间
-            long startTime=System.currentTimeMillis();
-            ChCorrect cc = new ChCorrect(pinyinToneService);
-            List<ErrorForm> result = cc.WrongInfo(text);
+            long startTime = System.currentTimeMillis();
+            //TODO 构建中文校对对象
+            ChCorrect cc = new ChCorrect(pinyinService);
+            //TODO 中文查错及纠错
+            List<ErrorForm> resultCH = cc.WrongInfo(text);
+            result.addAll(resultCH);
             //结束时间
-            long endTime=System.currentTimeMillis();
-            log.info("当前程序耗时："+(endTime-startTime)+"ms");
-            return Result.ok(result);
+            long endTime = System.currentTimeMillis();
+            log.info("中文校对程序耗时：" + (endTime - startTime) + "ms");
         }
-
+        log.info("校对完成");
+        return Result.ok(result);
     }
 
 }

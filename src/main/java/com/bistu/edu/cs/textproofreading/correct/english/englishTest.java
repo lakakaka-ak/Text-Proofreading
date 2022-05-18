@@ -1,6 +1,5 @@
 package com.bistu.edu.cs.textproofreading.correct.english;
 
-import com.bistu.edu.cs.textproofreading.correct.english.SpellCorrect;
 import com.bistu.edu.cs.textproofreading.pojo.en.Symbol;
 import com.github.houbb.word.checker.util.EnWordCheckers;
 import com.hankcs.algorithm.AhoCorasickDoubleArrayTrie;
@@ -23,17 +22,17 @@ public class englishTest {
     @SneakyThrows
     public static void main(String[] args) {
         long time1 = System.currentTimeMillis();
-        SpellCorrect sc = new SpellCorrect();
-        AhoCorasickDoubleArrayTrie<String> acdat = sc.buildDAT();
+        EnDictionary ed = new EnDictionary();
+        AhoCorasickDoubleArrayTrie<String> acdat = ed.buildDAT();
         long time2 = System.currentTimeMillis();
-
-        String text = "I have to speend";
+        String textInfo = "There were no geader differances in cognitie statas or phycical and functinal capancity.";
+        String text=textInfo.replaceAll("[,.!?:'\"]"," ");
         List<AhoCorasickDoubleArrayTrie.Hit<String>> hits = acdat.parseText(text);
         long time3 = System.currentTimeMillis();
 
         //TODO 将hits倒序
         Collections.reverse(hits);
-        long time4 = System.currentTimeMillis();
+        System.out.println(hits);
 
         /** hits.sort((o1, o2) -> {
          if(o1.end==o2.end){
@@ -84,8 +83,7 @@ public class englishTest {
 
         System.out.println("bulidDAT : " + (time2 - time1) + "ms");
         System.out.println("解析时间 : " + (time3 - time2) + "ms");
-        System.out.println("倒序时间 : " + (time4 - time3) + "ms");
-        System.out.println("查错时间 : " + (time5 - time4) + "ms");
+        System.out.println("查错时间 : " + (time5 - time3) + "ms");
         System.out.println("纠错时间 : " + (time6 - time5) + "ms");
 
     }
@@ -97,7 +95,6 @@ public class englishTest {
      * @param hit 存放待遍历元素的列表
      * @return 返回由该顶点所找到的最前置节点
      */
-
     public static int DFSSearch(List<AhoCorasickDoubleArrayTrie.Hit<String>> hit, int cur, int j) {
         a++;
         int mid = cur;

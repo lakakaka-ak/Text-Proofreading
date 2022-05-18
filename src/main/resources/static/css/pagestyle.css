@@ -64,6 +64,7 @@
     margin-left: 35px;
     height:380px;
     width:85%;
+    font-size: 16px;
 }
 .button{
     width: 100px;
@@ -100,4 +101,3 @@
     background-color: #edf3f6;
     border-radius: 10px;
 }
-

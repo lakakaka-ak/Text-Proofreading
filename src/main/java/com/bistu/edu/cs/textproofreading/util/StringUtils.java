@@ -21,6 +21,7 @@ public class StringUtils {
     public static final String BLANK = " ";
     public static final String NEW_LINE = "";
     public static final String COLON = ":";
+    public static final String COMMA = ",";
 
     /**
      * 实现 List <--> String 相互转换
@@ -89,7 +90,7 @@ public class StringUtils {
      * @return 清除后的文本
      */
     public static String replaceCharacter(String text) {
-        String regEx = "[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+        String regEx = "[`~!@#$%^&*()+=|{}':;',\\-\\[\\].<>/?~！@#￥%……&*（）——\\-+|{}【】‘；：”“。，、？]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(text);
         return m.replaceAll(" ").trim();

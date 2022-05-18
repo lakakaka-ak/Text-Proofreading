@@ -73,6 +73,13 @@
             <version>portable-1.8.3</version>
         </dependency>
 
+        <!--  jieba用于分词等    -->
+        <dependency>
+            <groupId>com.huaban</groupId>
+            <artifactId>jieba-analysis</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
         <!--  前后端数据交互    -->
         <dependency>
             <groupId>org.webjars</groupId>
