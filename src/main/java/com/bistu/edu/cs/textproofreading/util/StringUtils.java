@@ -90,11 +90,12 @@ public class StringUtils {
      * @return 清除后的文本
      */
     public static String replaceCharacter(String text) {
-        String regEx = "[`~!@#$%^&*()+=|{}':;',\\-\\[\\].<>/?~！@#￥%……&*（）——\\-+|{}【】‘；：”“。，、？]";
+        String regEx = "[`~!@#$%^&*\\\\()+=|{}':;,\\-\\[\\].<>/?~！@#￥%……&*（）——\\-+|{}【】‘\\’；：\"“。，、？]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(text);
         return m.replaceAll(" ").trim();
     }
+
 
     /**
      * 判断文本是否是英文

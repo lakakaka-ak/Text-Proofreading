@@ -35,7 +35,7 @@ public class pinyinTest {
         PinyinDictionary pd = new PinyinDictionary();
         //AhoCorasickDoubleArrayTrie<String> dat = p.PinyinList();
         AhoCorasickDoubleArrayTrie<String> dat = pd.buildPinyinDAT();
-        String text="习近平总书记发表了系烈重要讲话，深课回答了新形势下党和国家事页发展的一系列重大里论和现是问题，提出许多富有闯见的新理念新思想新栈略，丰富发展了党的科雪理论，是新的历史条件下我们党值国理政的行动钢领，是坚持和发展中国特色社辉主义的最新理论成果，凝结了全党知灰。深入学习贯彻习近平总书记系列重要讲话精神，是当前全省教育系统的一项重要政治任务。";
+        String text="作为一名大学生村官，既要胸坏远大丽想，凌云壮至，还必须脚踏实地，立足岗位，扎根基层，勇于担当，甘于风献，守得住清频，耐得住季寞。";
         HanLP.Config.ShowTermNature = false;//不显示词性
 
 //        long time1 = System.currentTimeMillis();

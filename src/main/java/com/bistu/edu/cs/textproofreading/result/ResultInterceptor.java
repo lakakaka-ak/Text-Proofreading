@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  */
 @Component
 public class ResultInterceptor implements HandlerInterceptor {
-    
+
     /**
      * 设置拦截器, 拦截请求
      * @param request 请求

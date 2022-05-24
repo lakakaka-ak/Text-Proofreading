@@ -24,11 +24,11 @@ import java.util.List;
 @RequestMapping("/proof")
 public class ProofController {
 
-    private final PinyinService pinyinService;
-
-    public ProofController(@Autowired PinyinService pinyinService) {
-        this.pinyinService = pinyinService;
-    }
+//    private final PinyinService pinyinService;
+//
+//    public ProofController(@Autowired PinyinService pinyinService) {
+//        this.pinyinService = pinyinService;
+//    }
 
     /**
      * <p>
@@ -67,7 +67,7 @@ public class ProofController {
             //当前时间
             long startTime = System.currentTimeMillis();
             //TODO 构建中文校对对象
-            ChCorrect cc = new ChCorrect(pinyinService);
+            ChCorrect cc = new ChCorrect();
             //TODO 中文查错及纠错
             List<ErrorForm> resultCH = cc.WrongInfo(text);
             result.addAll(resultCH);

@@ -4,7 +4,6 @@ import com.bistu.edu.cs.textproofreading.constant.DicConstant;
 import com.bistu.edu.cs.textproofreading.util.StringUtils;
 import com.github.houbb.heaven.util.lang.StringUtil;
 import com.hankcs.algorithm.AhoCorasickDoubleArrayTrie;
-import com.hankcs.hanlp.collection.trie.DoubleArrayTrie;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.notification.RunListener;
 
@@ -86,6 +85,11 @@ public class PinyinDictionary {
         return defineMap;
     }
 
+    /**
+     * 通过拼音获取所有词
+     * @param map map
+     * @param value map对应value值
+     */
     public <K, V> List<String> getKeysByStream(Map<String, String> map, V value) {
         return map.entrySet()
                 .stream()

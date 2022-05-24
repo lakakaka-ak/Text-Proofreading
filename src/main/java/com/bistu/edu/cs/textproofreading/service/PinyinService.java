@@ -195,4 +195,21 @@ public class PinyinService {
             return null;
         }
     }
+
+    /**
+     * 获取表中所有信息
+     * @return 列表
+     */
+    public List<PinyinData> getAll(){
+
+        //TODO 判断数据库中是否存在此元素
+        if(pinyinMapper.findAll()!= null){
+            return pinyinMapper.findAll();
+        }else{
+            logger.error("数据库中无此项数据");
+            return null;
+        }
+    }
+
 }
+

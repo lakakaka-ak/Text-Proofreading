@@ -25,6 +25,18 @@ public interface PinyinMapper {
     List<PinyinData> findPinyin(@Param("yin") String yin);
 
     /**
+     * 获取表中所有信息
+     * @return 列表
+     */
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "word", property = "word"),
+            @Result(column = "yin", property = "pinyin")
+    })
+    @Select("select * from Pinyin")
+    List<PinyinData> findAll();
+
+    /**
      * 根据对应拼音唯一查询相关数据
      * @param yin 拼音 property对应pojo里的实类名称
      * @return 相关列表

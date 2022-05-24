@@ -25,7 +25,7 @@ public class ResultHandler implements ResponseBodyAdvice<Object> {
      * 标记名称
      */
     static final String RESPONSE_RESULT_ANN = "RESPONSE-RESULT-ANN";
-    
+
     /**
      * 判断请求是否包含了注解请求, 没有直接返回, 不需要重写返回体
      * @param methodParameter 方法参数
